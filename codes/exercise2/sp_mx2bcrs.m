@@ -1,12 +1,13 @@
 function [val,col_idx,row_blk] = sp_mx2bcrs(A,nb)
+    
     n = length(A);
     nd = n/nb;
 
-    val = [];
+    val = zeros(nb,nb,0);
     col_idx = [];
     row_blk = NaN(1, nd+1);
     row_blk(1) = 1;
-    
+
     for row_block=1:nd
         row_nnzb = 0;
         
@@ -16,7 +17,7 @@ function [val,col_idx,row_blk] = sp_mx2bcrs(A,nb)
             B = A(row:row+nb-1,col:col+nb-1);  % B is the current block
             
             if nnz(B) ~= 0  % not a zero block
-                val = [val B];
+                val(:,:,end+1) = B;
                 col_idx = [col_idx col_block];
                 row_nnzb = row_nnzb + 1;
             end

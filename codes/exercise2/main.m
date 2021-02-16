@@ -1,4 +1,4 @@
-matrices = {'HB/arc130', 'Oberwolfach/spiral'};
+matrices = {'HB/arc130', 'Pajek/GD96_a'};
 
 for k=1:length(matrices)
     A = full(ssget(matrices{k}).A);

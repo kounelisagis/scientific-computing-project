@@ -1,14 +1,17 @@
 function [y] = spmv_bcrs(y,val,col_idx,row_blk,x)
 
-    n = length(row_blk)-1;
-    nb = length(x)/n;
+    n = length(x);
+    nd = length(row_blk)-1;
+    nb = n/nd;
 
-    for i = 1:n
-        for j = row_blk(i):row_blk(i+1)-1
-            real_row = (i-1)*nb+1;
-            real_col = (col_idx(j)-1)*nb+1;
-            y(real_row:real_row+nb-1) = y(real_row:real_row+nb-1) + val(1:nb,(j-1)*nb+1:j*nb) * x(real_col:real_col+nb-1);
+    for block_row = 1:nd
+        for k = row_blk(block_row):row_blk(block_row+1)-1
+
+            row = (block_row-1)*nb+1;
+            block_col = col_idx(k);
+            col = (block_col-1)*nb+1;
+
+            y(row:row+nb-1) = y(row:row+nb-1) + val(:,:,k) * x(col:col+nb-1);
         end
     end
-
 end
