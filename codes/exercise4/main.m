@@ -8,14 +8,14 @@ for k=1:length(matrices)
     marker_step = 30;
     marker_size = 8;
 
-    figure();
+    h = figure();
     p1 = plot(1:2:2*length(P(:,1))-1, P(:,1), '-bx', 'MarkerIndices', 1:marker_step:length(P(:,1)), 'MarkerSize', marker_size);
     hold on;
     p2 = plot(1:2:2*length(P(:,2))-1, P(:,2), '-ro', 'MarkerIndices', 1:marker_step:length(P(:,2)), 'MarkerSize', marker_size);
     hold off;
-    title(strcat({'Band Stats - '}, matrices_names{k}));
-    xlabel('Εύρος Ζώνης k');
-    ylabel('rnnz και rerr για το A^{(k)}');
-    legend([p1 p2],'rnnz','rerr');
 
+    title(strcat({'Band Stats - '}, matrices_names{k}),'fontsize',14,'interpreter','latex')
+    xlabel('Bandwidth k','fontsize',14,'interpreter','latex')
+    ylabel('rnnz \& rerr for $A^{(k)}$','fontsize',14,'interpreter','latex')
+    legend([p1 p2],'rnnz','rerr','interpreter','latex')
 end

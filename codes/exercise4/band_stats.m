@@ -19,16 +19,20 @@ function P = band_stats(mxid)
     n = length(A);
     A_band = diag(diag(A));  % contains the main diagonal
     
-    rnnz = nnz(A_band)/nnz(A);
-    rerr = norm(A-A_band,'fro')/norm(A,'fro');
+    nnzA = nnz(A);
+    normA = norm(A,'fro');
+    
+    rnnz = nnz(A_band)/nnzA;
+    rerr = norm(A-A_band,'fro')/normA;
 
     P = zeros(n, 2);  % 1st column rnnz, 2nd column rerr
     P(1,:) = [rnnz rerr];
     
+    
     for k=1:n-1
     	A_band = A_band + diag(diag(A,k), k) + diag(diag(A,-k), -k);
-        rnnz = nnz(A_band)/nnz(A);
-        rerr = norm(A-A_band,'fro')/norm(A,'fro');
+        rnnz = nnz(A_band)/nnzA;
+        rerr = norm(A-A_band,'fro')/normA;
         P(k+1,:) = [rnnz rerr];
     end
 
