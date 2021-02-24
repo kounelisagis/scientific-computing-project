@@ -5,9 +5,9 @@ function [y] = spmv_bcrs(y,val,col_idx,row_blk,x)
     nb = n/nd;
 
     for block_row = 1:nd
-        for k = row_blk(block_row):row_blk(block_row+1)-1
+        row = (block_row-1)*nb+1;
 
-            row = (block_row-1)*nb+1;
+        for k = row_blk(block_row):row_blk(block_row+1)-1
             block_col = col_idx(k);
             col = (block_col-1)*nb+1;
 
